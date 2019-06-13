@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mt.bbdj">
+
+    <uses-sdk tools:overrideLibrary="cn.jzvd,org.raphets.roundimageview" />
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" /> <!-- 往SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 访问internet权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.READ_APP_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <permission
+        android:name="com.mt.bbdj.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" /> <!-- 解锁屏幕需要的权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" /> <!-- 申请电源锁需要的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required -->
+    <uses-permission android:name="com.mt.bbdj.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" /> <!-- Optional. Required for location feature -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.GET_TASKS" /> <!-- 这个权限用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <application
+        android:name=".baseconfig.application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_logo_"
+        android:label="兵兵到家"
+        android:roundIcon="@drawable/ic_logo_"
+        android:theme="@style/MainTheme"
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:label,theme,icon">
+        <activity android:name=".community.activity.OperaVideoActivity"></activity>
+        <!-- 设置key -->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ad46bd828313c14fdd3f0377bb2dd4b2" /> <!-- 定位需要的服务 -->
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="efOWqlX3W5wG57G9b6i9awuwrC9fmMCM" />
+
+        <activity
+            android:name=".baseconfig.activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".baseconfig.base.BaseActivity" />
+        <activity
+            android:name=".baseconfig.activity.IdentitySelectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.CommunityActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".corporation.activity.CorporationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".baseconfig.activity.LoginActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".baseconfig.activity.RegisterAccountActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".baseconfig.activity.RegisterCompleteActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".baseconfig.activity.RegisterFinishActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".baseconfig.activity.FindPasswordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.MatterShopActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name="com.yanzhenjie.durban.DurbanActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".community.activity.MessageAboutActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.MessageRechargePannelActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.RechargeFinishActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.PannelRechargeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.SendResByHandActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.FastmailMessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.ChangeMessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.ExpressageListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.IdentificationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity
+            android:name=".community.activity.SendManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MailingdetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.CauseForcannelOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RecordSheetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.BluetoothSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.PrintPreviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RecordSheetDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".baseconfig.activity.LoadActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".baseconfig.activity.SlideActivity" />
+        <activity
+            android:name=".community.activity.BluetoothSearchAgainActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" />
+
+        <receiver
+            android:name=".baseconfig.receiver.JPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+
+                <!-- Required 用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!-- Required 用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!-- Required 用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!-- Required 用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+
+                <category android:name="com.mt.bbdj" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".community.activity.BaseMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MywalletActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.WithdrawCashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.WithdrawCashRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ConsumeRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.BindAccountActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.SettingCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MessageManagerdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ComplainManagerdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.SearchPackageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ShowPackageMessageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.SystemMessageAboutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.WebDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClientManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClientMessageDetail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClientMessageChangeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MyOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MyOrderDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MyAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.EditAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.PayforOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.PayforOrderFromShopingCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ShopCarActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ChangeManagerdActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.MoneyFormatManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.EnterManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OutManagerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RepertoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RepertoryDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.GlobalSearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RegisterAggreementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RechargeRecordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RechargeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="wx8272f870c214888e" /> <!-- 需修改 -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".community.activity.YesterdayPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.YesterdSendPayActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.BluetoothNumberActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.SignatureActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".community.activity.YesterdPaiActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.EnterManager_new_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.rxfeature.activity.ActivityScanerCode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OutManager_new_Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.StoreManagerdActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.RepertoryStoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ConsumeDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OpearteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OpearPictureActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.OpearVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+    </application>
+
+</manifest>
