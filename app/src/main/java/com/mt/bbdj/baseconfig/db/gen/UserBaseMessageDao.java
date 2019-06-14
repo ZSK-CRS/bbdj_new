@@ -35,6 +35,9 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
         public final static Property Birthday = new Property(8, String.class, "birthday", false, "birthday");
         public final static Property Balance = new Property(9, String.class, "balance", false, "balance");
         public final static Property Contact_account = new Property(10, String.class, "contact_account", false, "contact_account");
+        public final static Property Address = new Property(11, String.class, "address", false, "address");
+        public final static Property Latitude = new Property(12, String.class, "latitude", false, "latitude");
+        public final static Property Longitude = new Property(13, String.class, "longitude", false, "longitude");
     }
 
 
@@ -60,7 +63,10 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
                 "\"contact_email\" TEXT," + // 7: contact_email
                 "\"birthday\" TEXT," + // 8: birthday
                 "\"balance\" TEXT," + // 9: balance
-                "\"contact_account\" TEXT);"); // 10: contact_account
+                "\"contact_account\" TEXT," + // 10: contact_account
+                "\"address\" TEXT," + // 11: address
+                "\"latitude\" TEXT," + // 12: latitude
+                "\"longitude\" TEXT);"); // 13: longitude
     }
 
     /** Drops the underlying database table. */
@@ -127,6 +133,21 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
         if (contact_account != null) {
             stmt.bindString(11, contact_account);
         }
+ 
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(12, address);
+        }
+ 
+        String latitude = entity.getLatitude();
+        if (latitude != null) {
+            stmt.bindString(13, latitude);
+        }
+ 
+        String longitude = entity.getLongitude();
+        if (longitude != null) {
+            stmt.bindString(14, longitude);
+        }
     }
 
     @Override
@@ -187,6 +208,21 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
         if (contact_account != null) {
             stmt.bindString(11, contact_account);
         }
+ 
+        String address = entity.getAddress();
+        if (address != null) {
+            stmt.bindString(12, address);
+        }
+ 
+        String latitude = entity.getLatitude();
+        if (latitude != null) {
+            stmt.bindString(13, latitude);
+        }
+ 
+        String longitude = entity.getLongitude();
+        if (longitude != null) {
+            stmt.bindString(14, longitude);
+        }
     }
 
     @Override
@@ -207,7 +243,10 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // contact_email
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // birthday
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // balance
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10) // contact_account
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // contact_account
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // address
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // latitude
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13) // longitude
         );
         return entity;
     }
@@ -225,6 +264,9 @@ public class UserBaseMessageDao extends AbstractDao<UserBaseMessage, Long> {
         entity.setBirthday(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setBalance(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
         entity.setContact_account(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setAddress(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setLatitude(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setLongitude(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
      }
     
     @Override

@@ -44,6 +44,8 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" /> <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".baseconfig.application.MyApplication"
@@ -54,8 +56,10 @@
         android:theme="@style/MainTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:label,theme,icon">
-        <activity android:name=".community.activity.OperaVideoActivity"></activity>
-        <!-- 设置key -->
+        <activity
+            android:name=".community.activity.ShopAddressMapActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".community.activity.OperaVideoActivity" /> <!-- 设置key -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ad46bd828313c14fdd3f0377bb2dd4b2" /> <!-- 定位需要的服务 -->
@@ -83,6 +87,9 @@
         <activity
             android:name=".baseconfig.activity.LoginActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.WaterOrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".baseconfig.activity.RegisterAccountActivity"
@@ -380,6 +387,21 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".community.activity.OpearteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClearOrderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClearStateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.ClearDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.QuotedPriceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".community.activity.CannelOrderActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".community.activity.OpearPictureActivity"

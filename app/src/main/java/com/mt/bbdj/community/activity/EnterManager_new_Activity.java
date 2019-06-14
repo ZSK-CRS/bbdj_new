@@ -985,6 +985,7 @@ public class EnterManager_new_Activity extends ActivityBase {
         JSONObject dataArray = jsonObject.getJSONObject("data");
         String package_code = dataArray.getString("code");
         String mobile = dataArray.getString("mobile");
+        mobile = StringUtil.handleNullResultForString(mobile);
         String type = dataArray.getString("type");
         String name = dataArray.getString("name");
         String number = dataArray.getString("number");

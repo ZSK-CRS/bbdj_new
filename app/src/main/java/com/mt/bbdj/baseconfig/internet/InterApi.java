@@ -16,6 +16,7 @@ public class InterApi {
     //public static final String SERVER_ADDRESS_ENTER = "http://www.81dja.com/Pie/";
     public static final String SERVER_ADDRESS_ENTER = BASE_URL + "/Pie/";
     public static final String SERVER_HANDLE = BASE_URL + "/StationApi/";
+    public static final String SERVER_ORDER = BASE_URL + "/ServiceOrders/";
 
     // public static final String SERVER_ADDRESS = "http://yanshi.81dja.com/BbdjApi/";
     //  public static final String SERVER_ADDRESS = "http://www.81dja.com/BbdjApi/";
@@ -195,6 +196,11 @@ public class InterApi {
      * 取消订单
      */
     public static final String ACTION_COMMIT_CANNEL_ORDER = "cancellationOrder500";
+
+    /**
+     * 取消服务类型订单
+     */
+    public static final String ACTION_COMMIT_SERVICE_ORDER = "cancellationMyOrder";
 
     /**
      * 打印时验证身份是否实名
@@ -497,6 +503,11 @@ public class InterApi {
     public static final String ACTION_EXPRESS_DETAIL_REQUEST = "getOutWarehouseinfo2010";
 
     /**
+     * 确认干洗送达
+     */
+    public static final String ACTION_CONFIRM_CLEAR_ORDER_REQUEST = "confirmationClearService";
+
+    /**
      * 待入库
      */
     public static final String ACTION_EXPRESS_WAIT_STORE = "getPackageList";
@@ -511,5 +522,39 @@ public class InterApi {
      */
     public static final String ACTION_DELETE_ENTER_STORE = "delectPackage";
 
+    /**
+     * 订单
+     */
+    public static final String ACTION_GET_ORDER = "getOrdersList";
 
+    /**
+     * 桶装水送达
+     */
+    public static final String ACTION_WATER_SEND = "confirmationService";
+
+    /**
+     * 桶装水接单
+     */
+    public static final String ACTION_WATER_RECEIVE = "confirmWaterOrder";
+
+    /**
+     * 获取取消服务类型的取消原因
+     */
+    public static final String ACTION_GET_SERTVICE_ORDER = "getReasons";
+
+    /**
+     * 取消干洗订单
+     */
+    public static final String ACTION_CANNEL_CLEAR_ORDER = "confirmCleaningOrder";
+
+
+    /**
+     * 获取干洗类目
+     */
+    public static final String ACTION_REQUEST_CLEAR_TYPE = "getServiceGoods";
+
+    /**
+     * 获取干洗类目
+     */
+    public static final String ACTION_REQUEST_CLEAR_PRICE = "confirmGoodsCategory";
 }

@@ -316,4 +316,11 @@ public class StringUtil {
         builder.append(encryptStr.substring(length - 3));
         return builder.toString();
     }
+
+    public static double changeStringToDouble(String data) {
+        if (null == data || "".equals(data)) {
+            return 0;
+        }
+        return Double.parseDouble(data);
+    }
 }

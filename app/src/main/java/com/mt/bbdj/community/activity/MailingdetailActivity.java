@@ -212,7 +212,7 @@ public class MailingdetailActivity extends AppCompatActivity {
         String yundanhao = jsonObject.getString("yundanhao");    //运单号
         String goods_name = jsonObject.getString("goods_name");
         String weight = jsonObject.getString("weight");
-        String content = jsonObject.getString("content");
+        String content = StringUtil.handleNullResultForString(jsonObject.getString("content"));
         String handover_states = jsonObject.getString("handover_states");     // 1 :未交接   2： 已交接
         isEffectiveChange = "1".equals(handover_states) ? true : false;
         tvOrderExpress.setText(express_name);   //快递公司

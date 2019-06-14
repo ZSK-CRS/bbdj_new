@@ -59,6 +59,7 @@ import com.mt.bbdj.baseconfig.utls.ToastUtil;
 import com.mt.bbdj.baseconfig.view.HorizontalProgressBar;
 import com.mt.bbdj.baseconfig.view.MyGridView;
 import com.mt.bbdj.community.activity.ChangeManagerdActivity;
+import com.mt.bbdj.community.activity.ClearOrderActivity;
 import com.mt.bbdj.community.activity.ClientManagerActivity;
 import com.mt.bbdj.community.activity.CommunityActivity;
 import com.mt.bbdj.community.activity.ComplainManagerdActivity;
@@ -82,6 +83,7 @@ import com.mt.bbdj.community.activity.SendManagerActivity;
 import com.mt.bbdj.community.activity.SendResByHandActivity;
 import com.mt.bbdj.community.activity.StoreManagerdActivity;
 import com.mt.bbdj.community.activity.SystemMessageAboutActivity;
+import com.mt.bbdj.community.activity.WaterOrderActivity;
 import com.mt.bbdj.community.adapter.MyGridViewAdapter;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
@@ -350,26 +352,34 @@ public class ComFirstFragment extends BaseFragment {
             case "1":       //交接管理
                 handleChangeManagerEvent();
                 break;
-            case "2":       //财务管理
+            case "2":       //桶装水
+                handleWaterManagerEvent();
+                break;
+            case "3":       //干洗服务
+                handleClearManagerEvent();
+                break;
+            case "4":       //财务管理
                 handleMoneyManagerEvent();
                 break;
-            case "3":       //客户管理
+            case "5":       //客户管理
                 handleClientManagerEvent();
                 break;
-            case "4":       //短信管理
+            case "6":       //短信管理
                 handleMessageEvent();
                 break;
-            case "5":       //物料商城
+            case "7":       //物料商城
                 handleShopEvent();
                 break;
-            case "6":      //投诉
+            case "8":      //投诉
                 handleComplainEvent();
                 break;
-            case "7":      //操作手册
+            case "9":      //操作手册
                 handleOperateEvent();
                 break;
         }
     }
+
+
 
     private void handleItemClickTwo(int position) {
         HashMap<String, Object> item = mListTwo.get(position);
@@ -400,6 +410,16 @@ public class ComFirstFragment extends BaseFragment {
             case "1":       //手动寄件
                 handleSendByhandEvent();
         }
+    }
+
+    private void handleClearManagerEvent() {
+        Intent intent = new Intent(getActivity(), ClearOrderActivity.class);
+        startActivity(intent);
+    }
+
+    private void handleWaterManagerEvent() {
+        Intent intent = new Intent(getActivity(), WaterOrderActivity.class);
+        startActivity(intent);
     }
 
     private void handleOperateEvent() {
@@ -481,7 +501,7 @@ public class ComFirstFragment extends BaseFragment {
     }
 
     private void setThreeItemData() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 10; i++) {
             HashMap<String, Object> item = new HashMap<>();
 
             if (i == 0) {
@@ -495,42 +515,48 @@ public class ComFirstFragment extends BaseFragment {
                 item.put("ic", R.drawable.ic_jiaojieguanli);
             }
 
-
             if (i == 2) {
                 item.put("id", "2");
+                item.put("name", "桶装水");
+                item.put("ic", R.drawable.ic_water_);
+            }
+
+            if (i == 3) {
+                item.put("id", "3");
+                item.put("name", "干洗服务");
+                item.put("ic", R.drawable.ic_clear_);
+            }
+
+
+            if (i == 4) {
+                item.put("id", "4");
                 item.put("name", "财务管理");
                 item.put("ic", R.drawable.ic_money_manager);
             }
-            if (i == 3) {
-                item.put("id", "3");
+            if (i == 5) {
+                item.put("id", "5");
                 item.put("name", "客户管理");
                 item.put("ic", R.drawable.ic_main_kehuguanli);
             }
-            if (i == 4) {
-                item.put("id", "4");
+            if (i == 6) {
+                item.put("id", "6");
                 item.put("name", "短信管理");
                 item.put("ic", R.drawable.ic_main_duanxin);
             }
-            if (i == 5) {
-                item.put("id", "5");
+            if (i == 7) {
+                item.put("id", "7");
                 item.put("name", "物料商城");
                 item.put("ic", R.drawable.ic_main_wuliao);
             }
-            if (i == 6) {
-                item.put("id", "6");
+            if (i == 8) {
+                item.put("id", "8");
                 item.put("name", "投诉管理");
                 item.put("ic", R.drawable.ic_main_tousu);
             }
-            if (i == 7) {
-                item.put("id", "7");
+            if (i == 9) {
+                item.put("id", "9");
                 item.put("name", "操作手册");
                 item.put("ic", R.drawable.ic_main_caozuo);
-            }
-
-            if (i == 8) {
-                item.put("id", "8");
-                item.put("name", "寄存管理");
-                item.put("ic", R.drawable.ic_money_manager);
             }
 
             mListThree.add(item);

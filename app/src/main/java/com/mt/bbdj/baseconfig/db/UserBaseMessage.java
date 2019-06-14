@@ -36,11 +36,18 @@ public class UserBaseMessage {
     private String balance;     //剩余金额
     @Property(nameInDb = "contact_account")
     private String contact_account;    //注册人电话
-    @Generated(hash = 1205159608)
+    @Property(nameInDb = "address")
+    private String address;    //地址
+    @Property(nameInDb = "latitude")
+    private String latitude;    //纬度
+    @Property(nameInDb = "longitude")
+    private String longitude;    //经度
+    @Generated(hash = 489780557)
     public UserBaseMessage(Long mainId, String user_id, String user_type,
             String headimg, String mingcheng, String contacts,
             String contact_number, String contact_email, String birthday,
-            String balance, String contact_account) {
+            String balance, String contact_account, String address, String latitude,
+            String longitude) {
         this.mainId = mainId;
         this.user_id = user_id;
         this.user_type = user_type;
@@ -52,6 +59,9 @@ public class UserBaseMessage {
         this.birthday = birthday;
         this.balance = balance;
         this.contact_account = contact_account;
+        this.address = address;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
     @Generated(hash = 1135630984)
     public UserBaseMessage() {
@@ -121,6 +131,24 @@ public class UserBaseMessage {
     }
     public void setContact_account(String contact_account) {
         this.contact_account = contact_account;
+    }
+    public String getAddress() {
+        return this.address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getLatitude() {
+        return this.latitude;
+    }
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+    public String getLongitude() {
+        return this.longitude;
+    }
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
 }

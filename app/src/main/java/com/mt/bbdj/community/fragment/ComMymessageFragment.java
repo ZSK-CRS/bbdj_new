@@ -107,7 +107,6 @@ public class ComMymessageFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
         initParams();
         initData();
-
         return view;
     }
 
@@ -289,6 +288,9 @@ public class ComMymessageFragment extends BaseFragment {
                     String contact_number = dataObj.getString("contact_number");
                     String contact_email = dataObj.getString("contact_email");
                     String contact_account = dataObj.getString("contact_account");
+                    String address = dataObj.getString("address");
+                    String latitude = dataObj.getString("latitude");
+                    String longitude = dataObj.getString("longitude");
                     String birthday = StringUtil.handleNullResultForNumber(dataObj.getString("birthday"));
                     String balance = StringUtil.handleNullResultForNumber(dataObj.getString("balance"));
                   //  String min_balance = StringUtil.handleNullResultForNumber(dataObj.getString("min_balance"));    //境界余额
@@ -301,6 +303,9 @@ public class ComMymessageFragment extends BaseFragment {
                     userBaseMessage.setContact_email(contact_email);
                     userBaseMessage.setBirthday(birthday);
                     userBaseMessage.setBalance(balance);
+                    userBaseMessage.setAddress(address);
+                    userBaseMessage.setLatitude(latitude);
+                    userBaseMessage.setLongitude(longitude);
                     userBaseMessage.setContact_account(contact_account);
                     tvShopLocal.setText(mingcheng);
                     tvMoney.setText("账户余额  " + balance+"元");
