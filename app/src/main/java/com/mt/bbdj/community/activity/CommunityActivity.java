@@ -145,7 +145,7 @@ public class CommunityActivity extends BaseActivity {
     //暂时解决重叠问题
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+      //  super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override

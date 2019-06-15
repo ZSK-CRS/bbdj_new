@@ -209,7 +209,7 @@ public class ComFirstFragment extends BaseFragment {
     private void initParams() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(getActivity(), "请稍后...");
+        dialogLoading = new HkDialogLoading(getActivity(), "请稍候...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();
@@ -855,7 +855,7 @@ public class ComFirstFragment extends BaseFragment {
         mProgressBar = new ProgressDialog(getActivity());
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         mProgressBar.setTitle("正在下载");
-        mProgressBar.setMessage("请稍后...");
+        mProgressBar.setMessage("请稍候...");
         mProgressBar.setProgress(0);
         mProgressBar.setMax(100);
         mProgressBar.show();

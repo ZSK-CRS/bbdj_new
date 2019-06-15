@@ -151,7 +151,7 @@ public class GlobalSearchSendFragment extends BaseFragment implements XRecyclerV
         mRequestQueue.add(REQUEST_GLOBAL_SEND, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                //  dialogLoading = WaitDialog.show(getActivity(), "请稍后...").setCanCancel(true);
+                //  dialogLoading = WaitDialog.show(getActivity(), "请稍候...").setCanCancel(true);
             }
 
             @Override

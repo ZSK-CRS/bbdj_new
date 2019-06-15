@@ -125,7 +125,7 @@ public class ClientMessageDetail extends BaseActivity implements XRecyclerView.L
         mRequestQueue.add(REQEUST_EDIT_MESSAGE, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-             //   waitDialog = WaitDialog.show(ClientMessageDetail.this,"请稍后...").setCanCancel(true);
+             //   waitDialog = WaitDialog.show(ClientMessageDetail.this,"请稍候...").setCanCancel(true);
             }
 
             @Override
@@ -185,7 +185,7 @@ public class ClientMessageDetail extends BaseActivity implements XRecyclerView.L
         mRequestQueue.add(REQUEST_GET_LIST, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-            //    waitDialog = WaitDialog.show(ClientMessageDetail.this,"请稍后...").setCanCancel(true);
+            //    waitDialog = WaitDialog.show(ClientMessageDetail.this,"请稍候...").setCanCancel(true);
             }
 
             @Override

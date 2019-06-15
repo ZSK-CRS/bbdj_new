@@ -31,7 +31,7 @@ public class MyFragmentDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String message = getArguments().getString("message","请稍后...");
+        String message = getArguments().getString("message","请稍候...");
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflate = getActivity().getLayoutInflater();
         View view  = inflate.inflate(R.layout.fragment_dialog,null);

@@ -211,7 +211,7 @@ public class RechargeActivity extends BaseActivity {
         mRequestQueue.add(REQUEST_WECHAT_PAY, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(RechargeActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(RechargeActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override
@@ -271,7 +271,7 @@ public class RechargeActivity extends BaseActivity {
         mRequestQueue.add(REQUEST_WECHAT_PAY, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(RechargeActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(RechargeActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override

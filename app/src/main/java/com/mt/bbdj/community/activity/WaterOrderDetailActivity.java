@@ -207,7 +207,7 @@ public class WaterOrderDetailActivity extends BaseActivity {
         mRequestQueue.add(REQUEST_SEND, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(WaterOrderDetailActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(WaterOrderDetailActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override
@@ -252,7 +252,7 @@ public class WaterOrderDetailActivity extends BaseActivity {
         mRequestQueue.add(REQUEST_SEND, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(WaterOrderDetailActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(WaterOrderDetailActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override

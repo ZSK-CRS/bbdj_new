@@ -92,7 +92,7 @@ public class MyOrderDetailActivity extends BaseActivity {
         mRequestQueue.add(1, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(MyOrderDetailActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(MyOrderDetailActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override

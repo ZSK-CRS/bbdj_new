@@ -99,7 +99,7 @@ public class RepertoryDetailActivity extends BaseActivity {
     private OnResponseListener<String> onResponseListener = new OnResponseListener<String>() {
         @Override
         public void onStart(int what) {
-            dialogLoading = WaitDialog.show(RepertoryDetailActivity.this, "请稍后...").setCanCancel(true);
+            dialogLoading = WaitDialog.show(RepertoryDetailActivity.this, "请稍候...").setCanCancel(true);
         }
 
         @Override
@@ -218,7 +218,7 @@ public class RepertoryDetailActivity extends BaseActivity {
         mRequestQueue.add(OUT_WAY_BILL_REQUEST, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                 dialogLoading = WaitDialog.show(RepertoryDetailActivity.this, "请稍后...").setCanCancel(true);
+                 dialogLoading = WaitDialog.show(RepertoryDetailActivity.this, "请稍候...").setCanCancel(true);
 
             }
 

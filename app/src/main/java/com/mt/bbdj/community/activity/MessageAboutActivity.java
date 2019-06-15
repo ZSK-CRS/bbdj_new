@@ -200,7 +200,7 @@ public class MessageAboutActivity extends BaseActivity implements XRecyclerView.
     private void initParams() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(MessageAboutActivity.this, "请稍后...");
+        dialogLoading = new HkDialogLoading(MessageAboutActivity.this, "请稍候...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();

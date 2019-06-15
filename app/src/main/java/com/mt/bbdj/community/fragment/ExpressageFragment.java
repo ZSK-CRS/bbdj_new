@@ -123,7 +123,7 @@ public class ExpressageFragment extends BaseFragment implements XRecyclerView.Lo
     private void initParams() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(getActivity(), "请稍后...");
+        dialogLoading = new HkDialogLoading(getActivity(), "请稍候...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();

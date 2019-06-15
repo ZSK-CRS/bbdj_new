@@ -301,7 +301,7 @@ public class SendResByHandActivity extends BaseActivity {
 
     private void changeReceiveAddress() {
         Intent intent = new Intent(this, ChangeMessageActivity.class);
-        intent.putExtra("book_id", book_id);
+        intent.putExtra("book_id", receive_id);
         intent.putExtra("book_name", tvReceiveName.getText().toString());
         intent.putExtra("book_telephone", tvReceivePhone.getText().toString());
         intent.putExtra("book_region", tvReceiveAddress.getText().toString());
@@ -462,7 +462,9 @@ public class SendResByHandActivity extends BaseActivity {
             return;
         }
         start_province = data.getStringExtra("book_province");
+        end_province = data.getStringExtra("book_province");
         start_city = data.getStringExtra("book_city");
+        end_city = data.getStringExtra("book_city");
         mCountry = data.getStringExtra("book_area");
         book_id = data.getStringExtra("book_id");
         send_id = data.getStringExtra("book_id");
@@ -490,7 +492,7 @@ public class SendResByHandActivity extends BaseActivity {
     private void initRequestParams() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(this, "请稍后...");
+        dialogLoading = new HkDialogLoading(this, "...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();

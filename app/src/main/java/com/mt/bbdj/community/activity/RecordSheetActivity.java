@@ -79,7 +79,7 @@ public class RecordSheetActivity extends BaseActivity {
     private void initData() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(this, "请稍后...");
+        dialogLoading = new HkDialogLoading(this, "请稍候...");
     }
 
     private void initParams() {

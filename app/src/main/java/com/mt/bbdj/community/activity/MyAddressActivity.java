@@ -286,7 +286,7 @@ public class MyAddressActivity extends BaseActivity implements XRecyclerView.Loa
 
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(MyAddressActivity.this, "请稍后...");
+        dialogLoading = new HkDialogLoading(MyAddressActivity.this, "请稍候...");
 
         initList();    //初始化列表
     }

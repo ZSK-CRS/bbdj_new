@@ -93,7 +93,7 @@ public class MessageRechargePannelActivity extends BaseActivity {
 
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(MessageRechargePannelActivity.this, "请稍后...");
+        dialogLoading = new HkDialogLoading(MessageRechargePannelActivity.this, "请稍候...");
     }
 
 

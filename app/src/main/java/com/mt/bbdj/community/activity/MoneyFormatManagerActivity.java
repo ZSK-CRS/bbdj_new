@@ -168,7 +168,7 @@ public class MoneyFormatManagerActivity extends BaseActivity implements XRecycle
         mRequestQueue.add(REQUEST_MONEY_MANAGER_DATA, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-                dialogLoading = WaitDialog.show(MoneyFormatManagerActivity.this, "请稍后...").setCanCancel(true);
+                dialogLoading = WaitDialog.show(MoneyFormatManagerActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override

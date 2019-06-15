@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.mt.bbdj.R;
 import com.mt.bbdj.baseconfig.activity.LoginActivity;
 import com.mt.bbdj.baseconfig.db.City;
@@ -37,6 +39,8 @@ import com.mt.bbdj.baseconfig.utls.HkDialogLoading;
 import com.mt.bbdj.baseconfig.utls.LogUtil;
 import com.mt.bbdj.baseconfig.utls.StringUtil;
 import com.mt.bbdj.baseconfig.utls.ToastUtil;
+import com.mt.bbdj.community.adapter.FastmailMessageAdapter;
+import com.mt.bbdj.community.adapter.HistoryAddressAdapter;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
@@ -48,6 +52,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -72,6 +77,8 @@ public class ChangeMessageActivity extends AppCompatActivity {
     EditText tvSelectDetailAddress;     //详细地址
     @BindView(R.id.bt_save_address)
     Button btSaveAddress;      //保存按钮
+    @BindView(R.id.rl_address_list)
+    XRecyclerView rlAddressList;     //列表
 
     @BindView(R.id.tv_clear)
     TextView tv_clear;    //清除
@@ -108,9 +115,12 @@ public class ChangeMessageActivity extends AppCompatActivity {
     private final int TYPE_CHANGE_ADDRESS = 1;    //修改地址
     private final int TYPE_ADD_ADDRESS = 2;    //新添地址
     private final int TYPE_DECODE_ADDRESS = 3;    //新添地址
+    private final int TYPE_GET_ADDRESS = 4;   //获取地址列表
 
     private boolean isChange = false;    // false : 添加  true : 修改
     private int mType;
+    private HistoryAddressAdapter messageAdapter;
+    private List<HashMap<String,String>> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +130,38 @@ public class ChangeMessageActivity extends AppCompatActivity {
         initParams();
         initData();
         initAreaData();
+        initHistoryAddress();   //获取历史地址
+    }
 
+    private void initHistoryAddress() {
+        mList = new ArrayList<>();
+        messageAdapter = new HistoryAddressAdapter(mList);
+        rlAddressList.setFocusable(false);
+        rlAddressList.setNestedScrollingEnabled(false);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        rlAddressList.setLayoutManager(mLayoutManager);
+        rlAddressList.setAdapter(messageAdapter);
+        requestData();
+        initListener();
+    }
+
+    private void initListener() {
+        messageAdapter.setItemClickListener(new HistoryAddressAdapter.OnItemSelectClickListener() {
+            @Override
+            public void onItemSelectClick(int position) {
+                Intent intent = new Intent();
+                HashMap<String,String> item = mList.get(position);
+                intent.putExtra("book_id",item.get("book_id"));
+                intent.putExtra("book_name",item.get("book_name"));
+                intent.putExtra("book_telephone",item.get("book_telephone"));
+                intent.putExtra("book_region",item.get("book_region"));
+                intent.putExtra("book_address",item.get("book_address"));
+                intent.putExtra("book_province",item.get("book_province"));
+                intent.putExtra("book_city",item.get("book_city"));
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
     }
 
     private void initParams() {
@@ -229,6 +270,18 @@ public class ChangeMessageActivity extends AppCompatActivity {
         });
     }
 
+
+    private void requestData() {
+        String user_id = "";
+        List<UserBaseMessage> list = mUserMessageDao.queryBuilder().list();
+        if (list != null && list.size() != 0) {
+            user_id = list.get(0).getUser_id();
+        }
+        Request<String> request = NoHttpRequest.getStageAddressRequest(user_id,mType+"");
+        mRequestQueue.add(TYPE_GET_ADDRESS, request, mResponseListener);
+    }
+
+
     private void handleMessageEvent() {
         //表示修改地址
         if (isChange) {
@@ -281,7 +334,10 @@ public class ChangeMessageActivity extends AppCompatActivity {
     private OnResponseListener<String> mResponseListener = new OnResponseListener<String>() {
         @Override
         public void onStart(int what) {
-            dialogLoading.show();
+            if (what == TYPE_CHANGE_ADDRESS) {
+                dialogLoading.show();
+            }
+
         }
 
         @Override
@@ -291,22 +347,13 @@ public class ChangeMessageActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(response.get());
                 String code = jsonObject.get("code").toString();
                 String msg = jsonObject.get("msg").toString();
-                JSONObject data = jsonObject.getJSONObject("data");
-                String book_id = data.getString("book_id");
-                ToastUtil.showShort(msg);
                 if ("5001".equals(code)) {
-                    Intent intent = new Intent();
-                    intent.putExtra("book_id", book_id);
-                    intent.putExtra("book_name", etInputName.getText().toString());
-                    intent.putExtra("book_telephone", etInputPhone.getText().toString());
-                    intent.putExtra("book_region", tvSelectGenelAddress.getText().toString());
-                    intent.putExtra("book_address", tvSelectDetailAddress.getText().toString());
-                    intent.putExtra("book_province", mProvince);
-                    intent.putExtra("book_city", mCity);
-                    intent.putExtra("book_area", mCountry);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    hanldeResult(what,jsonObject);
                 }
+                if (what == TYPE_CHANGE_ADDRESS) {
+                    ToastUtil.showShort(msg);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 dialogLoading.cancel();
@@ -326,6 +373,70 @@ public class ChangeMessageActivity extends AppCompatActivity {
             dialogLoading.cancel();
         }
     };
+
+    private void hanldeResult(int what, JSONObject jsonObject) throws JSONException {
+        switch (what) {
+            case TYPE_CHANGE_ADDRESS:    //修改地址
+                handleChangeAddress(jsonObject);
+                break;
+            case TYPE_GET_ADDRESS:     //获取历史地址列表
+                handleHistoryAddress(jsonObject);
+                break;
+        }
+    }
+
+    private void handleHistoryAddress(JSONObject jsonObject) throws JSONException {
+        mList.clear();
+        JSONArray jsonArray = jsonObject.getJSONArray("data");
+        for (int i = 0;i < jsonArray.length();i++) {
+            HashMap<String,String> map = new HashMap<>();
+            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+            String book_id = jsonObject1.getString("book_id");
+            String book_name = jsonObject1.getString("book_name");
+            String book_telephone = jsonObject1.getString("book_telephone");
+            String book_region = jsonObject1.getString("book_region");
+            String book_address = jsonObject1.getString("book_address");
+
+            String book_province = jsonObject1.getString("book_province");
+            String book_city = jsonObject1.getString("book_city");
+            String book_area = jsonObject1.getString("book_area");
+
+
+            if ("".equals(book_region) || "null".equals(book_region)
+                    || "".equals(book_address) || "null".equals(book_address)) {
+                book_region = "无";
+                book_address = "";
+            }
+            map.put("book_id",book_id);
+            map.put("book_name",book_name);
+            map.put("book_telephone",book_telephone);
+            map.put("book_region",book_region);
+            map.put("book_address",book_address);
+
+            map.put("book_province",book_province);
+            map.put("book_city",book_city);
+            map.put("book_area",book_area);
+            mList.add(map);
+            map = null;
+        }
+        messageAdapter.notifyDataSetChanged();
+    }
+
+    private void handleChangeAddress(JSONObject jsonObject) throws JSONException {
+        JSONObject data = jsonObject.getJSONObject("data");
+        String book_id = data.getString("book_id");
+        Intent intent = new Intent();
+        intent.putExtra("book_id", book_id);
+        intent.putExtra("book_name", etInputName.getText().toString());
+        intent.putExtra("book_telephone", etInputPhone.getText().toString());
+        intent.putExtra("book_region", tvSelectGenelAddress.getText().toString());
+        intent.putExtra("book_address", tvSelectDetailAddress.getText().toString());
+        intent.putExtra("book_province", mProvince);
+        intent.putExtra("book_city", mCity);
+        intent.putExtra("book_area", mCountry);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
 
     private boolean isRightAboutMessage(String realName, String telephone, String region, String address) {
         if ("".equals(realName)) {

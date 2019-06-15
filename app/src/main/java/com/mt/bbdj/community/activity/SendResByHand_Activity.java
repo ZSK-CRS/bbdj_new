@@ -422,7 +422,7 @@ public class SendResByHand_Activity extends BaseActivity {
     private void initRequestParams() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(this, "请稍后...");
+        dialogLoading = new HkDialogLoading(this, "请稍候...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();

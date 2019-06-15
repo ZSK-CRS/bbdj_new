@@ -329,7 +329,7 @@ public class WaitMimeographFragment extends BaseFragment implements XRecyclerVie
     private void initData() {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(getActivity(), "请稍后...");
+        dialogLoading = new HkDialogLoading(getActivity(), "请稍候...");
 
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();

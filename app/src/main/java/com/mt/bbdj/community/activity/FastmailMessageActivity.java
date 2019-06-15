@@ -275,7 +275,7 @@ public class FastmailMessageActivity extends BaseActivity implements XRecyclerVi
 
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
-        dialogLoading = new HkDialogLoading(FastmailMessageActivity.this, "请稍后...");
+        dialogLoading = new HkDialogLoading(FastmailMessageActivity.this, "请稍候...");
 
         initList();    //初始化列表
     }

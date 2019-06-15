@@ -96,7 +96,7 @@ public class OrderDetailActivity extends BaseActivity implements XRecyclerView.L
         mRequestQueue.add(1, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-              //  dialogLoading = WaitDialog.show(OrderDetailActivity.this, "请稍后...").setCanCancel(true);
+              //  dialogLoading = WaitDialog.show(OrderDetailActivity.this, "请稍候...").setCanCancel(true);
             }
 
             @Override

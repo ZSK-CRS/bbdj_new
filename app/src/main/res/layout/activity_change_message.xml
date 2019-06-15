@@ -42,13 +42,13 @@
     </RelativeLayout>
 
     <android.support.v4.widget.NestedScrollView
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <LinearLayout
@@ -188,10 +188,10 @@
                     android:layout_height="match_parent"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:paddingRight="15dp"
                     android:hint="请填写详细地址"
                     android:maxLines="1"
                     android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:singleLine="true"
                     android:textColor="@color/grey_7"
                     android:textColorHint="@color/grey_1"
@@ -286,6 +286,27 @@
                     android:textSize="14sp" />
 
             </LinearLayout>
+
+            <TextView
+                android:background="@color/grey_9"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="历史地址"
+                android:textColor="@color/grey_7"
+                android:textSize="13sp" />
+
+            <com.jcodecraeer.xrecyclerview.XRecyclerView
+                android:id="@+id/rl_address_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:paddingBottom="20dp">
+
+            </com.jcodecraeer.xrecyclerview.XRecyclerView>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
