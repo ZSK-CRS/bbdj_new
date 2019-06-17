@@ -9,6 +9,7 @@ buildscript {
         jcenter()
     }
 
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
@@ -35,7 +36,6 @@ allprojects {
     configurations.all {
         resolutionStrategy.force 'com.android.support:support-v4:27.1.1'
     }
-
 
 }
 
