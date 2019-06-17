@@ -216,7 +216,7 @@ public class MailingdetailActivity extends AppCompatActivity {
         String handover_states = jsonObject.getString("handover_states");     // 1 :未交接   2： 已交接
         isEffectiveChange = "1".equals(handover_states) ? true : false;
         tvOrderExpress.setText(express_name);   //快递公司
-        tvOrderTime.setText(DateUtil.changeStampToStandrdTime("yyyy-MMM-dd HH:mm", time));  //下单时间
+        tvOrderTime.setText(DateUtil.changeStampToStandrdTime("yyyy-MM-dd HH:mm", time));  //下单时间
         tvSendName.setText(send_name);
         tvOrderNumber.setText(dingdanhao);
         tvSendPhone.setText(send_phone);

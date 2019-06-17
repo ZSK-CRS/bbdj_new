@@ -2,6 +2,8 @@ package com.mt.bbdj.community.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -11,17 +13,24 @@ import com.jcodecraeer.xrecyclerview.XRecyclerView;
 import com.mt.bbdj.R;
 import com.mt.bbdj.baseconfig.base.BaseActivity;
 import com.mt.bbdj.baseconfig.internet.NoHttpRequest;
+import com.mt.bbdj.baseconfig.utls.DateUtil;
 import com.mt.bbdj.baseconfig.utls.LogUtil;
 import com.mt.bbdj.baseconfig.utls.StringUtil;
 import com.mt.bbdj.baseconfig.utls.ToastUtil;
+import com.mt.bbdj.community.adapter.ProductListAdapter;
 import com.yanzhenjie.nohttp.NoHttp;
 import com.yanzhenjie.nohttp.rest.OnResponseListener;
 import com.yanzhenjie.nohttp.rest.Request;
 import com.yanzhenjie.nohttp.rest.RequestQueue;
 import com.yanzhenjie.nohttp.rest.Response;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -75,9 +84,26 @@ public class ConsumeDetailActivity extends BaseActivity {
     TextView tv_yundan;
     @BindView(R.id.ll_message)
     LinearLayout ll_message;
+    @BindView(R.id.tv_address)
+    TextView tv_address;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
+    @BindView(R.id.tv_order_number)
+    TextView tv_order_number;
+    @BindView(R.id.tv_order_time)
+    TextView tv_order_time;
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+    @BindView(R.id.rl_product)
+    RecyclerView rlProduct;
+    @BindView(R.id.ll_service)
+    LinearLayout ll_service;
+
 
     private RequestQueue mRequestQueue;
     private int REQUEST_DETAIL_REQUEST = 100;
+    private ProductListAdapter mAdapter;
+    private List<HashMap<String,String>> mList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +111,15 @@ public class ConsumeDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_consume_detail);
         ButterKnife.bind(this);
         initParams();
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+
+        //initTemparayData();   //模拟数据
+        mAdapter = new ProductListAdapter(mList);
+        rlProduct.setLayoutManager(new LinearLayoutManager(this));
+        rlProduct.setAdapter(mAdapter);
     }
 
     private void initParams() {
@@ -132,10 +167,21 @@ public class ConsumeDetailActivity extends BaseActivity {
 
                         if ("1".equals(types) || "2".equals(types)) {
                             ll_message.setVisibility(View.VISIBLE);
+                            ll_service.setVisibility(View.GONE);
                             JSONObject peopleObj = dataObj.getJSONObject("people");
                             setMessage(peopleObj);
+                        } else if ("5".equals(types)){
+                            ll_message.setVisibility(View.GONE);
+                            ll_service.setVisibility(View.VISIBLE);
+                            String order_number = dataObj.getString("order_number");
+                            String create_time = dataObj.getString("create_time");
+                            tv_order_number.setText(StringUtil.handleNullResultForString(order_number));
+                            tv_order_time.setText(DateUtil.changeStampToStandrdTime("yyyy-MM-dd HH:mm",create_time));
+                            JSONObject peopleObj = dataObj.getJSONObject("people");
+                            setServiceMessage(peopleObj);
                         } else {
                             ll_message.setVisibility(View.GONE);
+                            ll_service.setVisibility(View.GONE);
                         }
 
                     } else {
@@ -156,6 +202,27 @@ public class ConsumeDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void setServiceMessage(JSONObject peopleObj) throws JSONException {
+        String user_name = peopleObj.getString("user_name");
+        String user_mobile = peopleObj.getString("user_mobile");
+        String address = peopleObj.getString("address");
+        tv_address.setText(StringUtil.handleNullResultForString(address));
+        tv_phone.setText(StringUtil.handleNullResultForString(user_mobile));
+        tv_name.setText(StringUtil.handleNullResultForString(user_name));
+        JSONArray detailArray = peopleObj.getJSONArray("detailed");
+        for (int i = 0;i < detailArray.length();i++) {
+            JSONObject obj = detailArray.getJSONObject(i);
+            HashMap<String,String> map = new HashMap<>();
+            map.put("commodity_name",obj.getString("commodity_name"));
+            map.put("number",obj.getString("number"));
+            map.put("money",obj.getString("money"));
+            map.put("total",obj.getString("total"));
+            mList.add(map);
+            map = null;
+        }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void setMessage(JSONObject peopleObj) throws JSONException {
@@ -194,6 +261,11 @@ public class ConsumeDetailActivity extends BaseActivity {
         tvGoodsWeiht.setText(dot_weight);
         tvMarkTitle.setText(StringUtil.handleNullResultForString(content));
 
+    }
+
+    @OnClick({R.id.iv_back})
+    public void onItemClickListener() {
+        finish();
     }
 
 }
