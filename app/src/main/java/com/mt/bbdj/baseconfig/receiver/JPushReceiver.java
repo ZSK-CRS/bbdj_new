@@ -14,8 +14,10 @@ import com.mt.bbdj.baseconfig.model.TargetEvent;
 import com.mt.bbdj.baseconfig.utls.LogUtil;
 import com.mt.bbdj.baseconfig.utls.SharedPreferencesUtil;
 import com.mt.bbdj.baseconfig.utls.SoundHelper;
+import com.mt.bbdj.community.activity.ClearOrderActivity;
 import com.mt.bbdj.community.activity.CommunityActivity;
 import com.mt.bbdj.community.activity.SendManagerActivity;
+import com.mt.bbdj.community.activity.WaterOrderActivity;
 import com.yanzhenjie.nohttp.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,12 +60,25 @@ public class JPushReceiver extends BroadcastReceiver {
             } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
                 LogUtil.d(TAG, "[MyReceiver] 用户点击打开了通知");
 
-                //打开自定义的Activity
-                Intent i = new Intent(context, SendManagerActivity.class);
-                i.putExtras(bundle);
-                //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(i);
+                //获取推送消息的方法
+                String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+
+                if (null != content && content.startsWith("【干洗】")) {
+                    Intent intentAction1 = new Intent(context, ClearOrderActivity.class);
+                    intentAction1.putExtras(bundle);
+                    intentAction1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intentAction1);
+                } else if (null != content && content.startsWith("【桶装水】")){
+                    Intent intentAction2 = new Intent(context, WaterOrderActivity.class);
+                    intentAction2.putExtras(bundle);
+                    intentAction2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intentAction2);
+                }else {
+                    Intent intentAction3 = new Intent(context, SendManagerActivity.class);
+                    intentAction3.putExtras(bundle);
+                    intentAction3.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    context.startActivity(intentAction3);
+                }
 
             } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
                 LogUtil.d(TAG, "[MyReceiver] 用户收到到RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));

@@ -185,11 +185,15 @@ public class ComFirstFragment extends BaseFragment {
     final String fileName = "bbdj.apk";
     private boolean isGetData = false;
     private HorizontalProgressBar progressBar;
+    private UserBaseMessage mUserBaseMessage;
+    private boolean isHidden = true;
+    private SharedPreferences.Editor editor;
 
     public static ComFirstFragment getInstance() {
         ComFirstFragment comFirstFragment = new ComFirstFragment();
         return comFirstFragment;
     }
+
 
     @Nullable
     @Override
@@ -210,7 +214,7 @@ public class ComFirstFragment extends BaseFragment {
         //初始化请求队列
         mRequestQueue = NoHttp.newRequestQueue();
         dialogLoading = new HkDialogLoading(getActivity(), "请稍候...");
-
+        editor = SharedPreferencesUtil.getEditor();
         mDaoSession = GreenDaoManager.getInstance().getSession();
         mUserMessageDao = mDaoSession.getUserBaseMessageDao();
         mProvinceDao = mDaoSession.getProvinceDao();
@@ -222,6 +226,15 @@ public class ComFirstFragment extends BaseFragment {
         List<UserBaseMessage> list = mUserMessageDao.queryBuilder().list();
         if (list != null && list.size() != 0) {
             user_id = list.get(0).getUser_id();
+
+            mUserBaseMessage = list.get(0);
+            user_id = mUserBaseMessage.getUser_id();
+            mUserBaseMessage.getAddress();
+            if (mUserBaseMessage.getAddress().contains("泉州")) {
+                isHidden = true;
+            } else{
+                isHidden = false;
+            }
         }
 
         if (InterApi.SERVER_ADDRESS.contains("www.81dja.com")) {
@@ -267,6 +280,22 @@ public class ComFirstFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         requestPannelMessage();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+      /*  if (!hidden) {
+            requestPannelMessage();
+        }*/
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
+        }
     }
 
     private void requestPannelMessage() {
@@ -386,18 +415,39 @@ public class ComFirstFragment extends BaseFragment {
         String id = item.get("id").toString();
         switch (id) {
             case "0":     //寄存管理
-                //ToastUtil.showShort("暂不开放");
-               handleStoreManageEvent();
+                if (isHidden) {
+                    ToastUtil.showShort("暂不开放！");
+                } else {
+                    handleStoreManageEvent();
+                }
                 break;
             case "1":       //入库管理
-                //ToastUtil.showShort("暂不开放！");
-                handleEnterManagerEvent();
+                if (isHidden) {
+                    ToastUtil.showShort("暂不开放！");
+                } else {
+                    handleEnterManagerEvent();
+                }
                 break;
             case "2":       //出库管理
-                // ToastUtil.showShort("暂不开放！");
-                  handleOutManagerEvent();
+                if (isHidden) {
+                    ToastUtil.showShort("暂不开放！");
+                } else {
+                    handleOutManagerEvent();
+                }
+                break;
+            case "3":       //我的存放
+                if (isHidden) {
+                    ToastUtil.showShort("暂不开放！");
+                } else {
+                    handleSaveManagerEvent();
+                }
                 break;
         }
+    }
+
+    private void handleSaveManagerEvent() {
+        Intent intent = new Intent(getActivity(), RepertoryActivity.class);
+        startActivity(intent);
     }
 
     private void handleItemClickFirst(int position) {
@@ -440,7 +490,7 @@ public class ComFirstFragment extends BaseFragment {
 
     private void handleEnterManagerEvent() {
         // Intent intent = new Intent(getActivity(), EnterManagerActivity.class);
-         Intent intent = new Intent(getActivity(), EnterManager_new_Activity.class);
+        Intent intent = new Intent(getActivity(), EnterManager_new_Activity.class);
         startActivity(intent);
     }
 
@@ -563,28 +613,32 @@ public class ComFirstFragment extends BaseFragment {
         }
         MyGridViewAdapter myGridViewAdapter = new MyGridViewAdapter(mListThree);
         mComGridViewThree.setAdapter(myGridViewAdapter);
-
     }
 
     private void setTwoItemData() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             HashMap<String, Object> item = new HashMap<>();
 
             if (i == 0) {
                 item.put("id", "0");
-                item.put("name", "寄存管理");
+                item.put("name", "接收存放");
                 item.put("ic", R.drawable.ic_money_manager);
             }
 
             if (i == 1) {
                 item.put("id", "1");
-                item.put("name", "入库管理");
+                item.put("name", "扫码入库");
                 item.put("ic", R.drawable.ic_main_ruku);
             }
             if (i == 2) {
                 item.put("id", "2");
-                item.put("name", "出库管理");
+                item.put("name", "用户取件");
                 item.put("ic", R.drawable.ic_main_chuku);
+            }
+            if (i == 3) {
+                item.put("id", "3");
+                item.put("name", "我的存放");
+                item.put("ic", R.drawable.ic_save__);
             }
 
             mListTwo.add(item);
@@ -604,20 +658,19 @@ public class ComFirstFragment extends BaseFragment {
             }
             if (i == 1) {
                 item.put("id", "1");
-                item.put("name", "客户寄件");
+                item.put("name", "帮客户寄件");
                 item.put("ic", R.drawable.ic_main_shoudongjijian);
             }
             mList.add(item);
         }
         MyGridViewAdapter myGridViewAdapter = new MyGridViewAdapter(mList);
         mComGridView.setAdapter(myGridViewAdapter);
-
     }
 
     private OnResponseListener<String> mResponseListener = new OnResponseListener<String>() {
         @Override
         public void onStart(int what) {
-            //   dialogLoading.show();
+            //  dialogLoading.show();
         }
 
         @Override
@@ -679,6 +732,7 @@ public class ComFirstFragment extends BaseFragment {
         String birthday = dataObj.getString("birthday");   //入驻天数
         String version_number = dataObj.getString("version_number");   //版本号
         String prohibit = dataObj.getString("prohibit");   //状态 1：正常营业  其他：禁止登录
+
         //版本地址
         version_url = dataObj.getString("version_url");
         String unread_url = dataObj.getString("unread_url");   //未读消息
@@ -690,7 +744,6 @@ public class ComFirstFragment extends BaseFragment {
         tvSmsNumber.setText("短信余额：" + StringUtil.handleNullResultForNumber(sms_number));
         tvPannelNumber.setText("面单余额：" + StringUtil.handleNullResultForNumber(face_number));
         tvAddress.setText(StringUtil.handleNullResultForString(username));
-        SharedPreferences.Editor editor = SharedPreferencesUtil.getEditor();
         editor.putString("money", money);
         editor.putString("birthday", birthday);
         editor.putString("address", username);
@@ -757,7 +810,7 @@ public class ComFirstFragment extends BaseFragment {
 
     private void showNOmoneyAlertDialog(float moneyInt, float min_moneyInt) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setMessage("当前账户余额为"+moneyInt+",低于警戒余额"+min_moneyInt+",请先充值")
+                .setMessage("当前账户可用余额为"+moneyInt+",低于保证余额"+min_moneyInt+",请先充值")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -807,6 +860,7 @@ public class ComFirstFragment extends BaseFragment {
                 download();
             }
         });
+
         dialog.show();
         DisplayMetrics dm = new DisplayMetrics();   //获取屏幕的大小
         WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);//获取WindowManager
@@ -817,6 +871,12 @@ public class ComFirstFragment extends BaseFragment {
 
         dialog.getWindow().setAttributes(lp);
         dialog.getWindow().setContentView(view);*/
+
+        editor.putString("userName", "");
+        editor.putString("password", "");
+        editor.putBoolean("update", false);
+        editor.commit();
+
         DialogUtil.promptDialog1(getActivity(), "更新提示", "有新版本上线，请先更新！", DetermineListener, throwListener);
     }
 
@@ -824,12 +884,6 @@ public class ComFirstFragment extends BaseFragment {
     android.content.DialogInterface.OnClickListener DetermineListener = new android.content.DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            SharedPreferences.Editor editor = SharedPreferencesUtil.getEditor();
-           /* editor.putString("userName","");
-            editor.putString("password","");*/
-            editor.remove("userName");
-            editor.remove("password");
-            editor.commit();
             download();
         }
     };
@@ -851,6 +905,7 @@ public class ComFirstFragment extends BaseFragment {
 
         dialog.getWindow().setAttributes(lp);
         dialog.getWindow().setContentView(view);*/
+
 
         mProgressBar = new ProgressDialog(getActivity());
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -883,10 +938,11 @@ public class ComFirstFragment extends BaseFragment {
                 ToastUtil.showShort(e.getMessage());
             }
         });
-
     }
 
+
     private void installApk(File file) {
+
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //判断是否是AndroidN以及更高的版本
@@ -942,8 +998,10 @@ public class ComFirstFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_address:   //地址
+              //  setAAddress();
                 break;
             case R.id.tv_time:
+               // setTime();
                 break;
             case R.id.tv_receive_wait:       //待收件
                 actionToWaitPannel();
@@ -955,13 +1013,15 @@ public class ComFirstFragment extends BaseFragment {
                 actionToMessagePannel();      //跳转到消息界面
                 break;
             case R.id.tv_abnormal_wait:     //仓库
-                // ToastUtil.showShort("暂不开放!");
-                 actionToRepertoryPannel();
+                if (isHidden) {
+                    ToastUtil.showShort("暂不开放!");
+                }else {
+                    actionToRepertoryPannel();
+                }
                 break;
             case R.id.textview_serach:
                 actionToSearchPannel();    //搜索
                 break;
-
         }
     }
 

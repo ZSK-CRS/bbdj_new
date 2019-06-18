@@ -60,7 +60,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="top"
                 android:gravity="center"
-                android:text="账户余额: 0"
+                android:text="可用余额: 0"
                 android:textColor="@color/whilte"
                 android:textSize="14sp" />
 
@@ -72,7 +72,7 @@
                 android:layout_gravity="top"
                 android:layout_marginLeft="20dp"
                 android:gravity="center"
-                android:text="警戒余额: 0"
+                android:text="保证金: 0"
                 android:textColor="@color/whilte"
                 android:textSize="14sp" />
         </LinearLayout>

@@ -126,6 +126,7 @@
             android:layout_width="@dimen/durban_dp_200"
             android:layout_height="@dimen/durban_dp_200"
             android:layout_gravity="center"
+            android:background="@drawable/ic_caijian_"
             app:srcCompat="@drawable/durban_vector_ic_crop_logo"
             tools:ignore="MissingPrefix" />
 

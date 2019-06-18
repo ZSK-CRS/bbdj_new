@@ -98,6 +98,7 @@ public class ComMymessageFragment extends BaseFragment {
     private SharedPreferences.Editor editor1;
     private UserBaseMessageDao userBaseMessageDao;
     private IWXAPI api;
+    private UserBaseMessage mUserBaseMessage;
 
 
     @Nullable
@@ -110,17 +111,44 @@ public class ComMymessageFragment extends BaseFragment {
         return view;
     }
 
-
     private void initParams() {
-        DaoSession daoSession = GreenDaoManager.getInstance().getSession();
-        userBaseMessageDao = daoSession.getUserBaseMessageDao();
+
+        DaoSession mDaoSession = GreenDaoManager.getInstance().getSession();
+        userBaseMessageDao = mDaoSession.getUserBaseMessageDao();
+        List<UserBaseMessage> list = userBaseMessageDao.queryBuilder().list();
+        if (list != null && list.size() != 0) {
+            mUserBaseMessage = list.get(0);
+            user_id = mUserBaseMessage.getUser_id();
+
+            if (mUserBaseMessage.getAddress().contains("泉州")) {
+                tvMingMoney.setVisibility(View.GONE);
+            } else{
+                tvMingMoney.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            requestBaseMessage();
+        }
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        requestBaseMessage();
+
     }
 
     @OnClick({R.id.ll_base_message, R.id.ll_my_wallet, R.id.ll_center_sitting,
@@ -255,12 +283,6 @@ public class ComMymessageFragment extends BaseFragment {
 
 
     private void requestBaseMessage() {
-        DaoSession mDaoSession = GreenDaoManager.getInstance().getSession();
-        UserBaseMessageDao mUserMessageDao = mDaoSession.getUserBaseMessageDao();
-        List<UserBaseMessage> list = mUserMessageDao.queryBuilder().list();
-        if (list != null && list.size() != 0) {
-            user_id = list.get(0).getUser_id();
-        }
         Request<String> request = NoHttpRequest.getUserBaseMessageRequest(user_id);
         mRequestQueue.add(REQUEST_GET_USER_MESSAGE, request, onResponseListener);
     }
@@ -293,7 +315,7 @@ public class ComMymessageFragment extends BaseFragment {
                     String longitude = dataObj.getString("longitude");
                     String birthday = StringUtil.handleNullResultForNumber(dataObj.getString("birthday"));
                     String balance = StringUtil.handleNullResultForNumber(dataObj.getString("balance"));
-                  //  String min_balance = StringUtil.handleNullResultForNumber(dataObj.getString("min_balance"));    //境界余额
+                    String min_balance = StringUtil.handleNullResultForNumber(dataObj.getString("min_balance"));    //境界余额
                     UserBaseMessage userBaseMessage = new UserBaseMessage();
                     userBaseMessage.setUser_id(user_id);
                     userBaseMessage.setHeadimg(headimg);
@@ -308,10 +330,14 @@ public class ComMymessageFragment extends BaseFragment {
                     userBaseMessage.setLongitude(longitude);
                     userBaseMessage.setContact_account(contact_account);
                     tvShopLocal.setText(mingcheng);
-                    tvMoney.setText("账户余额  " + balance+"元");
+
+                    double balanceNumber =  StringUtil.changeStringToDouble(balance);
+                    double min_balanceNumber  =  StringUtil.changeStringToDouble(min_balance);
+                    double userMoney = balanceNumber - min_balanceNumber;
+                    tvMoney.setText("可用余额  " + userMoney+"元");
                     tvBirthday.setText("入驻天数  " + birthday + "天");
                     userBaseMessageDao.save(userBaseMessage);
-                  //  tvMingMoney.setText("警戒余额 : " + min_balance);
+                    tvMingMoney.setText("保证金 : " + min_balance+"元");
                 } else {
                     ToastUtil.showShort(msg);
                 }
@@ -336,5 +362,7 @@ public class ComMymessageFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
     }
 }

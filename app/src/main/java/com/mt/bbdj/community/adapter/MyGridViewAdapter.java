@@ -1,5 +1,6 @@
 package com.mt.bbdj.community.adapter;
 
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +62,7 @@ public class MyGridViewAdapter extends BaseAdapter{
     }
 
     public class ViewHolder{
-        TextView name;
+        AppCompatTextView name;
         ImageView ic;
     }
 }

@@ -46,11 +46,16 @@ public class LoadActivity extends AppCompatActivity {
             //不是第一次则判断是否已经登录了
             String userName = mShare.getString("userName","");
             String password = mShare.getString("password","");
-            if (!"".equals(userName) && !"".equals(password)) {   //若是已经登陆过了，直接到程序主页
-                intent.setClass(this,CommunityActivity.class);
-            } else {    //未登录则跳转到登录界面
+
+            //未登录则跳转到登录界面
+            if ("".equals(userName) || "".equals(password) || null == userName
+                    || null == password || "null".equals(userName) || "null".equals(password)) {
                 intent.setClass(this,LoginActivity.class);
+            } else {
+                //若是已经登陆过了，直接到程序主页
+                intent.setClass(this,CommunityActivity.class);
             }
+            intent.setClass(this,LoginActivity.class);
         }
         startActivity(intent);
         finish();

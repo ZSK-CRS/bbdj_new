@@ -93,6 +93,7 @@ public class LoginActivity extends AppCompatActivity {
         setPushSetting();     //设置推送别名
         initData();
         loadAddressData();
+
         mUsername.setCursorVisible(false);
         mPassword.setCursorVisible(false);
         mUsername.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +109,10 @@ public class LoginActivity extends AppCompatActivity {
                 mPassword.setCursorVisible(true);
             }
         });
+        SharedPreferences mShare = SharedPreferencesUtil.getSharedPreference();
+        String name =  mShare.getString("userName","");
+        String pass = mShare.getString("password","");
+        mUsername.setText(name+"::"+pass);
     }
 
     private void setPushSetting() {
@@ -252,6 +257,10 @@ public class LoginActivity extends AppCompatActivity {
         String contact_number = dataObject.getString("contact_number");
         String contact_email = dataObject.getString("contact_email");
         String contact_account = dataObject.getString("contact_account");
+        String province = dataObject.getString("province");
+        String city = dataObject.getString("city");
+        String area = dataObject.getString("area");
+        String address = province+city+area;
         mUserMessageDao.deleteAll();
         UserBaseMessage userBaseMessage = new UserBaseMessage();
         userBaseMessage.setUser_id(user_id);
@@ -260,6 +269,7 @@ public class LoginActivity extends AppCompatActivity {
         userBaseMessage.setMingcheng(mingcheng);
         userBaseMessage.setContacts(contacts);
         userBaseMessage.setContact_number(contact_number);
+        userBaseMessage.setAddress(address);
         userBaseMessage.setContact_email(contact_email);
         userBaseMessage.setContact_account(contact_account);
         mUserMessageDao.save(userBaseMessage);

@@ -12,17 +12,21 @@
 
     <ImageView
         android:id="@+id/img_main_item"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_main_me_normal" />
 
-    <TextView
-        android:layout_marginTop="3dp"
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_main_item"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="30dp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         android:gravity="center"
+        android:autoSizeStepGranularity="1sp"
+        android:autoSizeMaxTextSize="13sp"
+        android:autoSizeMinTextSize="10sp"
         android:textColor="@color/black"
         android:text="sdfdfsdf"
         android:textSize="13sp" />

@@ -2035,8 +2035,8 @@ public class NoHttpRequest {
         String encryption = StringUtil.splitStringFromLast(timeStamp, 4);
         String signature = StringUtil.getSignatureString(timeStamp, randomStr, encryption);
         Request<String> request = NoHttp.createStringRequest(InterApi.SERVER_ADDRESS_ENTER
-                + InterApi.ACTION_DELETE_ENTER_STORE, RequestMethod.GET);
-        request.add("method", InterApi.ACTION_DELETE_ENTER_STORE);
+                + InterApi.ACTION_CONFIRM_ENTER_STORE, RequestMethod.GET);
+        request.add("method", InterApi.ACTION_CONFIRM_ENTER_STORE);
         request.add("signature", signature);
         request.add("timeStamp", timeStamp);     //时间戳
         request.add("randomStr", randomStr);     //随机值
@@ -2059,8 +2059,8 @@ public class NoHttpRequest {
         String encryption = StringUtil.splitStringFromLast(timeStamp, 4);
         String signature = StringUtil.getSignatureString(timeStamp, randomStr, encryption);
         Request<String> request = NoHttp.createStringRequest(InterApi.SERVER_ADDRESS_ENTER
-                + InterApi.ACTION_CONFIRM_ENTER_STORE, RequestMethod.GET);
-        request.add("method", InterApi.ACTION_CONFIRM_ENTER_STORE);
+                + InterApi.ACTION_DELETE_ENTER_STORE, RequestMethod.GET);
+        request.add("method", InterApi.ACTION_DELETE_ENTER_STORE);
         request.add("signature", signature);
         request.add("timeStamp", timeStamp);     //时间戳
         request.add("randomStr", randomStr);     //随机值

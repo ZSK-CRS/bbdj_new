@@ -249,12 +249,18 @@ public class EnterManager_new_Activity extends ActivityBase {
         initDecode();
         initParams();
         initView();
-        initListener();
         initSelectPop();
         //权限初始化
         initPermission();
         //扫描动画初始化
         initScanerAnimation();
+        initListener();
+        expressSelect.post(new Runnable() {
+            @Override
+            public void run() {
+                selectExpressDialog(expressSelect);
+            }
+        });
         //初始化 CameraManager
         CameraManager.init(mContext);
         hasSurface = false;
@@ -281,6 +287,7 @@ public class EnterManager_new_Activity extends ActivityBase {
                 }
             }
         });
+
 
         //选择对话框
         expressSelect.setOnClickListener(new View.OnClickListener() {
@@ -418,9 +425,11 @@ public class EnterManager_new_Activity extends ActivityBase {
             tagNumber = 1;
             mAdapter.notifyDataSetChanged();
             JSONArray data = jsonObject.getJSONArray("data");
+            ToastUtil.showLong("已短信通知用户");
             printNumber(data);    //打印取件码
+        } else {
+            ToastUtil.showShort(msg);
         }
-        ToastUtil.showShort(msg);
     }
 
     private void printNumber(JSONArray data) throws JSONException {
@@ -1058,8 +1067,16 @@ public class EnterManager_new_Activity extends ActivityBase {
                 Bitmap barcode_bitmap = (Bitmap) message.getData().get("barcode_bitmap");
                 String imagePath = saveBitmap(result.getText(), barcode_bitmap);
                 wayNumber = result.getText();
+                boolean isRight = StringUtil.isDigit(wayNumber);
+                if (isRight) {
+                    handleDecode((Result) message.obj, imagePath);// 解析成功，回调
+                } else {
+                    if (handler != null) {
+                        // 连续扫描，不发送此消息扫描一次结束后就不能再次扫描
+                        handler.sendEmptyMessage(R.id.restart_preview);
+                    }
+                }
 
-                handleDecode((Result) message.obj, imagePath);// 解析成功，回调
             } else if (message.what == R.id.decode_failed) {
                 state = State.PREVIEW;
                 CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), R.id.decode);

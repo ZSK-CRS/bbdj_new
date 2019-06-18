@@ -191,9 +191,9 @@ public class MywalletActivity extends AppCompatActivity {
                     userBaseMessage.setContact_account(contact_account);
                     userBaseMessage.setBirthday(birthday);
                     userBaseMessage.setBalance(balance);
-                    tvCurrentMoney.setText("当前余额 :  " + balance);
+                    tvCurrentMoney.setText("可用余额 :  " + balance);
                     userBaseMessageDao.save(userBaseMessage);
-                    tvMingMoney.setText("警戒余额 : "+ min_balance);
+                    tvMingMoney.setText("保证金 : "+ min_balance);
                 } else {
                     ToastUtil.showShort(msg);
                 }

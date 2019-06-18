@@ -148,7 +148,7 @@ public class RepertoryStoreActivity extends BaseActivity implements XRecyclerVie
 
     private void deleteRecorde(int position) {
         String package_id = mList.get(position).get("id");
-        Request<String> request = NoHttpRequest.confirmEnterStoreRequest(user_id, package_id);
+        Request<String> request = NoHttpRequest.deleteEnterRecorde(user_id, package_id);
         mRequestQueue.add(1, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
@@ -321,14 +321,13 @@ public class RepertoryStoreActivity extends BaseActivity implements XRecyclerVie
                     String code = jsonObject.get("code").toString();
                     String msg = jsonObject.get("msg").toString();
 
-
                     if ("5001".equals(code)) {
 
                         if (isFresh) {
                             mList.clear();
                             mAdapter.notifyDataSetChanged();
                         }
-                        ToastUtil.showShort("揽收成功");
+                        ToastUtil.showLong("已短信通知用户");
                         //  setPrintData(jsonObject);    //设置打印数据
 
                     } else {
