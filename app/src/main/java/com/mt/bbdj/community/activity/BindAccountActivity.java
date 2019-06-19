@@ -189,4 +189,12 @@ public class BindAccountActivity extends BaseActivity implements OnTabSelectList
     public void onTabReselect(int position) {
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

@@ -367,6 +367,7 @@ public class RechargeActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 
     private static void showAlert(Context ctx, String info) {
@@ -433,6 +434,5 @@ public class RechargeActivity extends BaseActivity {
             }
         }
     }
-
 
 }

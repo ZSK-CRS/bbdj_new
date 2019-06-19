@@ -221,15 +221,6 @@ public class ExpressageFragment extends BaseFragment implements XRecyclerView.Lo
         });
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-        mRequestQueue.cancelAll();
-        mRequestQueue.stop();
-    }
-
     @Override
     public void onRefresh() {
 
@@ -254,5 +245,15 @@ public class ExpressageFragment extends BaseFragment implements XRecyclerView.Lo
         }, 100);*/
         isFresh = false;
         requestExpressage();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

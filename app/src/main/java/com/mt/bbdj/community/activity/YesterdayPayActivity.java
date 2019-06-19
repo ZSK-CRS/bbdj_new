@@ -294,4 +294,12 @@ public class YesterdayPayActivity extends BaseActivity implements XRecyclerView.
         isFresh = false;
         requestData();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

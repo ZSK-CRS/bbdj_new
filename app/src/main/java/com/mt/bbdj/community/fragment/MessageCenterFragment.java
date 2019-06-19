@@ -216,4 +216,13 @@ public class MessageCenterFragment extends BaseFragment implements XRecyclerView
         page++;
         requestData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
+
 }

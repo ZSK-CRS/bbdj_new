@@ -209,4 +209,12 @@ public class CauseForcannelOrderActivity extends BaseActivity {
             mRequestQueue.add(REQUEST_COMMIT_CAUSE, request, onResponseListener);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

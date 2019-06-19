@@ -109,10 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                 mPassword.setCursorVisible(true);
             }
         });
-        SharedPreferences mShare = SharedPreferencesUtil.getSharedPreference();
-        String name =  mShare.getString("userName","");
-        String pass = mShare.getString("password","");
-        mUsername.setText(name+"::"+pass);
     }
 
     private void setPushSetting() {

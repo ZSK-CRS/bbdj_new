@@ -148,12 +148,6 @@ public class BindBankcardFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     @OnClick({R.id.bt_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -310,8 +304,12 @@ public class BindBankcardFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
         EventBus.getDefault().unregister(this);
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

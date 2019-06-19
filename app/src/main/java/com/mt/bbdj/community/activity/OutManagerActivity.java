@@ -364,5 +364,11 @@ public class OutManagerActivity extends CaptureActivity {
         recyclerView.addItemDecoration(new MyDecoration(this, LinearLayoutManager.VERTICAL, Color.parseColor("#e9e9e9"), 1));
         recyclerView.setAdapter(mAdapter);
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

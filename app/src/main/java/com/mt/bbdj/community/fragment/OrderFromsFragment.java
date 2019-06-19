@@ -276,9 +276,10 @@ public class OrderFromsFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        unbinder.unbind();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
-        unbinder.unbind();
+        mRequestQueue = null;
     }
 
 
@@ -495,6 +496,8 @@ public class OrderFromsFragment extends BaseFragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+
 
 }
 

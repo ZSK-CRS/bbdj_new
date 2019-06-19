@@ -375,4 +375,11 @@ public class WithdrawCashActivity extends BaseActivity {
         bindAccountArray = new String[]{"支付宝:"+account};
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

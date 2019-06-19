@@ -183,4 +183,13 @@ public class ComplainFragment extends BaseFragment implements XRecyclerView.Load
             }
         }, 100);
     }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

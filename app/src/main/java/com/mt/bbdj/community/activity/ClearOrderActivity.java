@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
@@ -46,6 +47,8 @@ public class ClearOrderActivity extends BaseActivity implements XRecyclerView.Lo
     private ClearOrderAdapter mAdapter;
 
     private TextView tv_no_data;
+
+    private RelativeLayout rl_back;
 
 
     private boolean isFresh = true;
@@ -137,6 +140,14 @@ public class ClearOrderActivity extends BaseActivity implements XRecyclerView.Lo
                 receiveClearOrder(order_id);
             }
         });
+
+        rl_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     private void receiveClearOrder(String order_id) {
@@ -173,6 +184,7 @@ public class ClearOrderActivity extends BaseActivity implements XRecyclerView.Lo
         mAdapter = new ClearOrderAdapter(this, mList);
         recyclerView = findViewById(R.id.rl_product);
         tv_no_data = findViewById(R.id.tv_no_data);
+        rl_back = findViewById(R.id.rl_back);
         recyclerView.setRefreshHeader(new ArrowRefreshHeader(this));
         recyclerView.setLoadingListener(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -375,5 +387,6 @@ public class ClearOrderActivity extends BaseActivity implements XRecyclerView.Lo
         super.onDestroy();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

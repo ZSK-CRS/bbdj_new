@@ -238,11 +238,12 @@ public class GlobalSearchSendFragment extends BaseFragment implements XRecyclerV
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
-        EventBus.getDefault().unregister(this);
+        mRequestQueue = null;
     }
 
 }

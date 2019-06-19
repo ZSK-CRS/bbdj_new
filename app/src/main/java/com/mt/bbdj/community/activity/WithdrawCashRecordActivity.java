@@ -278,10 +278,13 @@ public class WithdrawCashRecordActivity extends BaseActivity implements XRecycle
         requestData();
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
         mList = null;
     }
-
 }

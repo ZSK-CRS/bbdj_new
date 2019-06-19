@@ -120,4 +120,6 @@ public class GlobalSearchActivity extends BaseActivity {
             }
         });
     }
+
+
 }

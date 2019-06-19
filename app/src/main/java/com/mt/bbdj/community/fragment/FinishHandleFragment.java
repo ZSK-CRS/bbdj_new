@@ -391,5 +391,6 @@ public class FinishHandleFragment extends BaseFragment implements XRecyclerView.
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

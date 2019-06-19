@@ -270,5 +270,6 @@ public class RechargeRecordActivity extends BaseActivity implements XRecyclerVie
         mList = null;
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

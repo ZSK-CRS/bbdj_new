@@ -268,5 +268,6 @@ public class PannelRechargeActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

@@ -56,6 +56,7 @@ import com.mt.bbdj.baseconfig.utls.SharedPreferencesUtil;
 import com.mt.bbdj.baseconfig.utls.StringUtil;
 import com.mt.bbdj.baseconfig.utls.SystemUtil;
 import com.mt.bbdj.baseconfig.utls.ToastUtil;
+import com.mt.bbdj.baseconfig.view.CustomProgressDialog;
 import com.mt.bbdj.baseconfig.view.HorizontalProgressBar;
 import com.mt.bbdj.baseconfig.view.MyGridView;
 import com.mt.bbdj.community.activity.ChangeManagerdActivity;
@@ -188,6 +189,7 @@ public class ComFirstFragment extends BaseFragment {
     private UserBaseMessage mUserBaseMessage;
     private boolean isHidden = true;
     private SharedPreferences.Editor editor;
+    private CustomProgressDialog progressDialog;
 
     public static ComFirstFragment getInstance() {
         ComFirstFragment comFirstFragment = new ComFirstFragment();
@@ -222,6 +224,7 @@ public class ComFirstFragment extends BaseFragment {
         mCityDao = mDaoSession.getCityDao();
         mCountyDao = mDaoSession.getCountyDao();
         mMingleAreaDao = mDaoSession.getMingleAreaDao();
+        progressDialog = new CustomProgressDialog(getActivity());
 
         List<UserBaseMessage> list = mUserMessageDao.queryBuilder().list();
         if (list != null && list.size() != 0) {
@@ -229,11 +232,13 @@ public class ComFirstFragment extends BaseFragment {
 
             mUserBaseMessage = list.get(0);
             user_id = mUserBaseMessage.getUser_id();
-            mUserBaseMessage.getAddress();
-            if (mUserBaseMessage.getAddress().contains("泉州")) {
-                isHidden = true;
-            } else{
-                isHidden = false;
+            String address = mUserBaseMessage.getAddress();
+            if (null != address) {
+                if (address.contains("北京市") || address.contains("廊坊市")) {
+                    isHidden = false;
+                } else {
+                    isHidden = true;
+                }
             }
         }
 
@@ -251,6 +256,7 @@ public class ComFirstFragment extends BaseFragment {
         if (mExpressLogoList == null || mExpressLogoList.size() == 0) {
             return;
         }
+
         for (ExpressLogo expressLogo : mExpressLogoList) {
             String localPath = expressLogo.getLogoLocalPath();
             if ("".equals(localPath) || null == localPath) {
@@ -259,7 +265,6 @@ public class ComFirstFragment extends BaseFragment {
                 uploadLogoPicture(type);
             }
         }
-
     }
 
     private void uploadLogoPicture(String type) {
@@ -987,10 +992,14 @@ public class ComFirstFragment extends BaseFragment {
         mMingleAreaDao.saveInTx(mingleAreaList);
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 
     @OnClick({R.id.tv_address, R.id.tv_time, R.id.tv_receive_wait, R.id.tv_receive_handle,
@@ -999,9 +1008,11 @@ public class ComFirstFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.tv_address:   //地址
               //  setAAddress();
+                progressDialog.cancel();
                 break;
             case R.id.tv_time:
                // setTime();
+                progressDialog.show();
                 break;
             case R.id.tv_receive_wait:       //待收件
                 actionToWaitPannel();
@@ -1058,4 +1069,6 @@ public class ComFirstFragment extends BaseFragment {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+
 }

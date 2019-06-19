@@ -376,6 +376,7 @@ public class WaitCollectFragment extends BaseFragment implements XRecyclerView.L
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 
     private void showPromitDialog() {
@@ -408,5 +409,6 @@ public class WaitCollectFragment extends BaseFragment implements XRecyclerView.L
         page++;
         requestWaitCollectData();
     }
+
 
 }

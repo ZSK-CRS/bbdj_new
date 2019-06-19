@@ -120,7 +120,8 @@ public class ComMymessageFragment extends BaseFragment {
             mUserBaseMessage = list.get(0);
             user_id = mUserBaseMessage.getUser_id();
 
-            if (mUserBaseMessage.getAddress().contains("泉州")) {
+            String address = mUserBaseMessage.getAddress();
+            if (address.contains("泉州市")) {
                 tvMingMoney.setVisibility(View.GONE);
             } else{
                 tvMingMoney.setVisibility(View.VISIBLE);
@@ -358,11 +359,13 @@ public class ComMymessageFragment extends BaseFragment {
         }
     };
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

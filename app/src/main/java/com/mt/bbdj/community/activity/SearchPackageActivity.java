@@ -177,9 +177,13 @@ public class SearchPackageActivity extends BaseActivity {
         tvExpress.setCursorVisible(false);
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

@@ -269,5 +269,6 @@ public class RecordSheetActivity extends BaseActivity {
         super.onDestroy();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

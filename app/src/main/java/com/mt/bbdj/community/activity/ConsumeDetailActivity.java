@@ -43,7 +43,7 @@ public class ConsumeDetailActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tv_title;
     @BindView(R.id.ll_title)
-    LinearLayout llTitle;
+    RelativeLayout llTitle;
     @BindView(R.id.rl_ic)
     RelativeLayout rlIc;
     @BindView(R.id.tv_title_send)
@@ -268,4 +268,11 @@ public class ConsumeDetailActivity extends BaseActivity {
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

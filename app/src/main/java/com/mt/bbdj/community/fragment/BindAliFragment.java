@@ -205,9 +205,13 @@ public class BindAliFragment extends Fragment {
         return true;
     }
 
+
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         EventBus.getDefault().unregister(this);
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

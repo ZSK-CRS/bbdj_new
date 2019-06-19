@@ -230,4 +230,13 @@ public class WaitEnterFragmnet extends BaseFragment implements XRecyclerView.Loa
         isFresh = false;
         requestData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
+
 }

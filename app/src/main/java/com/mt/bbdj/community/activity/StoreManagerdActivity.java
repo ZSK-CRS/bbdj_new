@@ -338,4 +338,6 @@ public class StoreManagerdActivity extends BaseActivity {
                 .setDividerColor(0xFF24AD9D)
                 .build();
     }
+
+
 }

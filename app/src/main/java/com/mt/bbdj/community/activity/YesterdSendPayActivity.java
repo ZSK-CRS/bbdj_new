@@ -324,6 +324,14 @@ public class YesterdSendPayActivity extends BaseActivity {
         this.topPos = t;
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
+
     class MyTouchLinstener implements View.OnTouchListener {
         float lastX = 0;
         float lastY = 0;
@@ -366,7 +374,6 @@ public class YesterdSendPayActivity extends BaseActivity {
             }
             return false;
         }
-
     }
 
 }

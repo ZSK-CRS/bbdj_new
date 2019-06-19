@@ -163,4 +163,5 @@ public class OpearPictureActivity extends BaseActivity {
             rl_four.setVisibility(View.GONE);
         }
     }
+
 }

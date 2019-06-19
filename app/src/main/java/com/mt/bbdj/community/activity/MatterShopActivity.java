@@ -309,4 +309,11 @@ public class MatterShopActivity extends BaseActivity {
         homeList.setAdapter(mGoodsHomeAdapter);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

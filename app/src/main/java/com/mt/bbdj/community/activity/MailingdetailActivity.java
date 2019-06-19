@@ -266,5 +266,6 @@ public class MailingdetailActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

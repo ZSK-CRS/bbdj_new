@@ -79,6 +79,7 @@ import com.mt.bbdj.baseconfig.utls.SoundHelper;
 import com.mt.bbdj.baseconfig.utls.StringUtil;
 import com.mt.bbdj.baseconfig.utls.SystemUtil;
 import com.mt.bbdj.baseconfig.utls.ToastUtil;
+import com.mt.bbdj.baseconfig.view.CustomProgressDialog;
 import com.mt.bbdj.baseconfig.view.MarginDecoration;
 import com.mt.bbdj.baseconfig.view.MyDecoration;
 import com.mt.bbdj.baseconfig.view.MyPopuwindow;
@@ -221,7 +222,6 @@ public class EnterManager_new_Activity extends ActivityBase {
     private RxDialogSure rxDialogSure;
 
     private WaillMessageDao mWaillMessageDao;
-    private WaitDialog dialogLoading;
     private String wayNumber = "";
 
     private String station_id = "";    //驿站id
@@ -232,7 +232,7 @@ public class EnterManager_new_Activity extends ActivityBase {
     private TextView tv_yundan;
     private boolean isAdd;
 
-
+    private HkDialogLoading dialogLoading;
     /**
      * 设置扫描信息回调
      */
@@ -379,13 +379,13 @@ public class EnterManager_new_Activity extends ActivityBase {
             return;
         }
         tv_enter.setEnabled(false);
-        dialogLoading = WaitDialog.show(EnterManager_new_Activity.this, "入库中...").setCanCancel(false);
+
         String data_json = getEnterrecordData();
         Request<String> request = NoHttpRequest.enterRecordeRequest(user_id, express_id, data_json);
         mRequestQueue.add(ENTER_RECORDE_REQUEST, request, new OnResponseListener<String>() {
             @Override
             public void onStart(int what) {
-
+                dialogLoading.show();
             }
 
             @Override
@@ -396,7 +396,7 @@ public class EnterManager_new_Activity extends ActivityBase {
                     enterRecorderResult(jsonObject);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    dialogLoading.doDismiss();
+                    dialogLoading.dismiss();
                     tv_enter.setEnabled(true);
                 }
                 tv_enter.setEnabled(true);
@@ -404,13 +404,13 @@ public class EnterManager_new_Activity extends ActivityBase {
 
             @Override
             public void onFailed(int what, Response<String> response) {
-                dialogLoading.doDismiss();
+                dialogLoading.dismiss();
                 tv_enter.setEnabled(true);
             }
 
             @Override
             public void onFinish(int what) {
-                dialogLoading.doDismiss();
+                dialogLoading.dismiss();
                 tv_enter.setEnabled(true);
             }
         });
@@ -425,8 +425,8 @@ public class EnterManager_new_Activity extends ActivityBase {
             tagNumber = 1;
             mAdapter.notifyDataSetChanged();
             JSONArray data = jsonObject.getJSONArray("data");
-            ToastUtil.showLong("已短信通知用户");
             printNumber(data);    //打印取件码
+            dialogLoading.cancel();
         } else {
             ToastUtil.showShort(msg);
         }
@@ -570,7 +570,7 @@ public class EnterManager_new_Activity extends ActivityBase {
     }
 
     private void initParams() {
-
+        dialogLoading = new HkDialogLoading(this, "入库中...");
         DaoSession daoSession = GreenDaoManager.getInstance().getSession();
         UserBaseMessageDao mUserMessageDao = daoSession.getUserBaseMessageDao();
         mWaillMessageDao = daoSession.getWaillMessageDao();
@@ -1190,6 +1190,8 @@ public class EnterManager_new_Activity extends ActivityBase {
             }
         }
     }
+
+
 
     private String saveBitmap(String imageName, Bitmap bitmap) {
         File rootPath = new File(rootPaht);

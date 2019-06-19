@@ -629,5 +629,6 @@ public class ChangeMessageActivity extends AppCompatActivity {
         super.onDestroy();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

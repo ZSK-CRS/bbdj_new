@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jcodecraeer.xrecyclerview.ArrowRefreshHeader;
@@ -51,6 +52,8 @@ public class WaterOrderActivity extends BaseActivity implements XRecyclerView.Lo
     private OrderAdapter mAdapter;
 
     private TextView tv_no_data;
+
+    private RelativeLayout rl_back;
 
     private boolean isFresh = true;
     private RequestQueue mRequestQueue;
@@ -126,6 +129,13 @@ public class WaterOrderActivity extends BaseActivity implements XRecyclerView.Lo
                 startActivity(intent);
             }
         });
+
+        rl_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void confirmWaterSend(String order_id) {
@@ -162,6 +172,7 @@ public class WaterOrderActivity extends BaseActivity implements XRecyclerView.Lo
     private void initView() {
         mAdapter = new OrderAdapter(this,mList);
         recyclerView = findViewById(R.id.rl_product);
+        rl_back = findViewById(R.id.rl_back);
         tv_no_data = findViewById(R.id.tv_no_data);
         recyclerView.setRefreshHeader(new ArrowRefreshHeader(this));
         recyclerView.setLoadingListener(this);
@@ -353,5 +364,6 @@ public class WaterOrderActivity extends BaseActivity implements XRecyclerView.Lo
         super.onDestroy();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

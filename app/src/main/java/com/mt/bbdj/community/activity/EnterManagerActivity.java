@@ -572,5 +572,10 @@ public class EnterManagerActivity extends CaptureActivity {
             lists.add(waillMessage);
         }
         mWaillMessageDao.saveInTx(lists);
+
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
+
 }

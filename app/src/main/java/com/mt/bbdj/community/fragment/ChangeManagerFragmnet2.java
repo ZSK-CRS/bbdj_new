@@ -246,4 +246,12 @@ public class ChangeManagerFragmnet2 extends BaseFragment implements XRecyclerVie
         isFresh = false;
         requestData();
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

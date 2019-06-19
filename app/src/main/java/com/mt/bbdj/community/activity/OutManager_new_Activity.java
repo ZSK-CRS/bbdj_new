@@ -828,5 +828,12 @@ public class OutManager_new_Activity extends ActivityBase {
         tv_out_number.setText("(" + mList.size() + ")");
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 
 }

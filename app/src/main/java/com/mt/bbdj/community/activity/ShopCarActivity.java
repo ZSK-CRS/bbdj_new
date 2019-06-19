@@ -471,6 +471,7 @@ public class ShopCarActivity extends BaseActivity implements View.OnClickListene
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
         mList = null;
     }
 }

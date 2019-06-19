@@ -55,7 +55,6 @@ public class LoadActivity extends AppCompatActivity {
                 //若是已经登陆过了，直接到程序主页
                 intent.setClass(this,CommunityActivity.class);
             }
-            intent.setClass(this,LoginActivity.class);
         }
         startActivity(intent);
         finish();

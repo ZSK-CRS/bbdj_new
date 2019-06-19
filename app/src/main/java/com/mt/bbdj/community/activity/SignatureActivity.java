@@ -195,4 +195,13 @@ public class SignatureActivity extends Activity {
         }
         return _path;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
+
 }

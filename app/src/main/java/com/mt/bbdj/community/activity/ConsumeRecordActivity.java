@@ -295,5 +295,6 @@ public class ConsumeRecordActivity extends BaseActivity implements XRecyclerView
         mList = null;
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

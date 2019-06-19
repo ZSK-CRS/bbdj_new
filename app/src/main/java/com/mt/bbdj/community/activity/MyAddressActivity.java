@@ -330,6 +330,7 @@ public class MyAddressActivity extends BaseActivity implements XRecyclerView.Loa
         super.onDestroy();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
         mList = null;
     }
 
@@ -352,4 +353,5 @@ public class MyAddressActivity extends BaseActivity implements XRecyclerView.Loa
             }
         }, 100);
     }
+
 }

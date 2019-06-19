@@ -274,5 +274,6 @@ public class MessageSendFragment extends BaseFragment implements XRecyclerView.L
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

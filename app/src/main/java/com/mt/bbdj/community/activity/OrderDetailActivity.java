@@ -196,4 +196,12 @@ public class OrderDetailActivity extends BaseActivity implements XRecyclerView.L
         isFresh = false;
         requestData();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

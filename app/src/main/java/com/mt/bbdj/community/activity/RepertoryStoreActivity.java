@@ -473,4 +473,6 @@ public class RepertoryStoreActivity extends BaseActivity implements XRecyclerVie
         isFresh = false;
         recyclerView.loadMoreComplete();
     }
+
+
 }

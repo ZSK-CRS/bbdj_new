@@ -203,4 +203,11 @@ public class PayforOrderFromShopingCardActivity extends BaseActivity {
             initAddress();
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

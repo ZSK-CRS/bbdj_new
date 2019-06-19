@@ -234,5 +234,6 @@ public class MessageRechargePannelActivity extends BaseActivity {
         mList = null;
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

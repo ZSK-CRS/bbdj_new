@@ -642,5 +642,6 @@ public class SendResByHand_Activity extends BaseActivity {
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

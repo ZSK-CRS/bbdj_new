@@ -493,4 +493,12 @@ public class CommunityActivity extends BaseActivity {
             transaction.hide(mComMymessageFragment);
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
+    }
 }

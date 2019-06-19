@@ -261,10 +261,12 @@ public class GlobalSearchReceiveFragment extends BaseFragment implements XRecycl
         ToastUtil.showShort(msg);
     }
 
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

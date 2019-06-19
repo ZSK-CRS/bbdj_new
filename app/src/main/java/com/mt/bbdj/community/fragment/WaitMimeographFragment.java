@@ -365,5 +365,6 @@ public class WaitMimeographFragment extends BaseFragment implements XRecyclerVie
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

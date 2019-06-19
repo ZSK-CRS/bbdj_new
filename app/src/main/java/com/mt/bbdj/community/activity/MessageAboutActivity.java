@@ -256,5 +256,6 @@ public class MessageAboutActivity extends BaseActivity implements XRecyclerView.
         EventBus.getDefault().unregister(this);
         mRequestQueue.cancelAll();
         mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

@@ -295,10 +295,13 @@ public class RepertoryFragment extends BaseFragment implements XRecyclerView.Loa
         mPage++;
         requestData();
     }
-
+    
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         EventBus.getDefault().unregister(this);
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }

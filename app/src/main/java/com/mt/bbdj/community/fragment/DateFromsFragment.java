@@ -262,13 +262,6 @@ public class DateFromsFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
-
     private void initParams() {
         DaoSession daoSession = GreenDaoManager.getInstance().getSession();
         UserBaseMessageDao mUserMessageDao = daoSession.getUserBaseMessageDao();
@@ -345,5 +338,15 @@ public class DateFromsFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+        mRequestQueue.cancelAll();
+        mRequestQueue.stop();
+        mRequestQueue = null;
     }
 }
