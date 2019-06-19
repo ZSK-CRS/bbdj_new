@@ -66,7 +66,7 @@ public class MyApplication extends Application {
         ToastUtil.init(this);
 
         //bug收集
-       // CrashHandler.getInstance().init(this);
+        CrashHandler.getInstance().init(this);
 
     }
 

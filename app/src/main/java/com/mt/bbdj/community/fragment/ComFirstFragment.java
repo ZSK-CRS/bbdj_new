@@ -189,7 +189,6 @@ public class ComFirstFragment extends BaseFragment {
     private UserBaseMessage mUserBaseMessage;
     private boolean isHidden = true;
     private SharedPreferences.Editor editor;
-    private CustomProgressDialog progressDialog;
 
     public static ComFirstFragment getInstance() {
         ComFirstFragment comFirstFragment = new ComFirstFragment();
@@ -224,7 +223,6 @@ public class ComFirstFragment extends BaseFragment {
         mCityDao = mDaoSession.getCityDao();
         mCountyDao = mDaoSession.getCountyDao();
         mMingleAreaDao = mDaoSession.getMingleAreaDao();
-        progressDialog = new CustomProgressDialog(getActivity());
 
         List<UserBaseMessage> list = mUserMessageDao.queryBuilder().list();
         if (list != null && list.size() != 0) {
@@ -1007,12 +1005,8 @@ public class ComFirstFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_address:   //地址
-              //  setAAddress();
-                progressDialog.cancel();
                 break;
             case R.id.tv_time:
-               // setTime();
-                progressDialog.show();
                 break;
             case R.id.tv_receive_wait:       //待收件
                 actionToWaitPannel();
